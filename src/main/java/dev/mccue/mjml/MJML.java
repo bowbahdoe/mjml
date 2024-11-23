@@ -29,7 +29,7 @@ public final class MJML {
     private static final String mjmlSource;
     static  {
         try {
-            mjmlSource = new String(
+            mjmlSource = "window={};" + "process={};" + new String(
                     Objects.requireNonNull(
                             MJML.class.getResourceAsStream("/dev/mccue/mjml/mjml.js")
                     ).readAllBytes()
@@ -85,7 +85,7 @@ public final class MJML {
             var bindings = context.getBindings("js");
             bindings.putMember("code", contents);
             bindings.putMember("options", Json.write(options.asJson()));
-            var result = context.eval("js", "window={};" + "process={};" + mjmlSource);
+            var result = context.eval("js", mjmlSource);
             return result.getMember("html").asString();
         }
     }
