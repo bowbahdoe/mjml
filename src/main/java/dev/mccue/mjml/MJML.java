@@ -6,7 +6,6 @@ import org.graalvm.polyglot.Engine;
 import org.graalvm.polyglot.HostAccess;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -19,7 +18,7 @@ public final class MJML {
             if (ENGINE == null) {
                 ENGINE = Engine
                         .newBuilder("js")
-                        .logHandler(OutputStream.nullOutputStream())
+                        .option("engine.WarnInterpreterOnly", "false")
                         .build();
             }
             return ENGINE;
@@ -73,7 +72,8 @@ public final class MJML {
     public String toHtmlString(Engine engine, ToHtmlOptions options) {
         var contextBuilder = Context.newBuilder()
                 .allowHostAccess(HostAccess.NONE)
-                .logHandler(OutputStream.nullOutputStream());
+                //.logHandler(OutputStream.nullOutputStream())
+                ;
         if (engine != null) {
             contextBuilder.engine(engine);
         }
