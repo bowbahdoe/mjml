@@ -6,7 +6,7 @@
 
     <groupId>dev.mccue</groupId>
     <artifactId>mjml</artifactId>
-    <version>2024.11.22.1</version>
+    <version>2024.11.23</version>
     <packaging>jar</packaging>
 
     <properties>
