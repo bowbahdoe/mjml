@@ -11,6 +11,21 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class MJML {
+    private static final Object ENGINE_LOCK = new Object();
+    private static Engine ENGINE = null;
+
+    private static Engine getEngine() {
+        synchronized (ENGINE_LOCK) {
+            if (ENGINE == null) {
+                ENGINE = Engine
+                        .newBuilder("js")
+                        .logHandler(OutputStream.nullOutputStream())
+                        .build();
+            }
+            return ENGINE;
+        }
+    }
+
     private static final String mjmlSource;
     static  {
         try {
@@ -63,6 +78,10 @@ public final class MJML {
             if (engine != null) {
                 contextBuilder.engine(engine);
             }
+            else {
+                contextBuilder.engine(getEngine());
+            }
+
             try (Context context = contextBuilder.build()) {
                 var bindings = context.getBindings("js");
                 bindings.putMember("code", contents);
