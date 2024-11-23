@@ -40,3 +40,9 @@ void main() {
     System.out.println(html);
 }
 ```
+
+## Caveats
+
+* This is not a pure Java implementation of MJML. It embeds the `mjml-browser` JavaScript library using graaljs.
+* Because of the dependency on graaljs and how that does its maven metadata, `jlink` doesn't currently work as-is. 
+You would need to separately add a JS module
