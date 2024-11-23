@@ -71,27 +71,22 @@ public final class MJML {
     }
 
     public String toHtmlString(Engine engine, ToHtmlOptions options) {
-        try {
-            var contextBuilder = Context.newBuilder()
-                    .allowHostAccess(HostAccess.NONE)
-                    .logHandler(OutputStream.nullOutputStream());
-            if (engine != null) {
-                contextBuilder.engine(engine);
-            }
-            else {
-                contextBuilder.engine(getEngine());
-            }
+        var contextBuilder = Context.newBuilder()
+                .allowHostAccess(HostAccess.NONE)
+                .logHandler(OutputStream.nullOutputStream());
+        if (engine != null) {
+            contextBuilder.engine(engine);
+        }
+        else {
+            contextBuilder.engine(getEngine());
+        }
 
-            try (Context context = contextBuilder.build()) {
-                var bindings = context.getBindings("js");
-                bindings.putMember("code", contents);
-                bindings.putMember("options", Json.write(options.asJson()));
-                var result = context.eval("js", "window={};" + "process={};" + mjmlSource);
-                return result.getMember("html").asString();
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        try (Context context = contextBuilder.build()) {
+            var bindings = context.getBindings("js");
+            bindings.putMember("code", contents);
+            bindings.putMember("options", Json.write(options.asJson()));
+            var result = context.eval("js", "window={};" + "process={};" + mjmlSource);
+            return result.getMember("html").asString();
         }
     }
 }
