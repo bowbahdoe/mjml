@@ -40,7 +40,6 @@ public final class ToHtmlOptions {
             }
         }
 
-        System.out.println(m.build());
         return m.build();
     }
 
