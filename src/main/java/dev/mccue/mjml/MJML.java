@@ -89,4 +89,20 @@ public final class MJML {
             return result.getMember("html").asString();
         }
     }
+
+    @Override
+    public String toString() {
+        return contents;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof MJML mjml
+                && Objects.equals(contents, mjml.contents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(contents);
+    }
 }

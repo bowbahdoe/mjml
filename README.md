@@ -6,7 +6,7 @@ JVM library for [MJML (Mailjet Markup Language)](https://mjml.io/).
 <dependency>
     <groupId>dev.mccue</groupId>
     <artifactId>mjml</artifactId>
-    <version>2024.11.22</version>
+    <version>2024.11.23</version>
 </dependency>
 ```
 
